@@ -1,14 +1,22 @@
-pom.xml
-pom.xml.asc
-*.jar
-*.class
-/lib/
-/classes/
-/target/
-/checkouts/
-.lein-deps-sum
-.lein-repl-history
-.lein-plugins/
-.lein-failures
-.nrepl-port
-.cpcache/
+# deps
+node_modules/
+
+# builds
+dist/
+build/
+
+# env / secretos
+.env*
+.vercel/
+
+# editor / sistema
+.vscode/
+.DS_Store
+
+# tests / coverage / logs
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

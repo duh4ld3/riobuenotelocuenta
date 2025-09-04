@@ -1,0 +1,21 @@
+idProyecto,mes,avance,ejecutadoMes,resumen,eventos
+1,2025-02,10,30000000,Inicio de excavaciones y retiro de antiguos adoquines.,2025-02-05:Inicio de excavaciones;2025-02-20:Retiro de adoquines
+1,2025-03,25,50000000,Demolición de estructuras y planificación de jardines.,2025-03-10:Demolición de bancas;2025-03-25:Planificación de jardines
+1,2025-04,45,70000000,Instalación de nuevas bancas y luminarias.,2025-04-05:Instalación de bancas;2025-04-20:Colocación de luminarias
+1,2025-05,60,65000000,Pavimentación y colocación de adoquines.,2025-05-15:Pavimentación;2025-05-30:Colocación de adoquines
+1,2025-06,75,60000000,Plantación de árboles y arbustos.,2025-06-10:Plantación de árboles;2025-06-25:Plantación de arbustos
+1,2025-07,90,80000000,Terminación de áreas verdes y pruebas de luminarias.,2025-07-05:Finalización de áreas verdes;2025-07-20:Pruebas de luminarias
+1,2025-08,100,75000000,Entrega de la plaza remodelada.,2025-08-15:Entrega de la plaza;2025-08-25:Inauguración oficial
+
+2,2025-05,0,0,Preparación de proyecto y licitación.,2025-05-10:Publicación de licitación;2025-05-28:Recepción de ofertas
+2,2025-06,0,0,Adjudicación y firma de contrato.,2025-06-12:Adjudicación;2025-06-25:Firma de contrato
+2,2025-07,10,20000000,Inicio de obras y movimientos de tierra.,2025-07-05:Inicio de obras;2025-07-22:Movimiento de tierra
+2,2025-08,20,30000000,Cimentación y estructuras básicas.,2025-08-10:Colocación de cimientos;2025-08-28:Construcción de estructuras básicas
+
+3,2024-09,15,25000000,Recolección de basura y residuos.,2024-09-05:Inicio de limpieza;2024-09-20:Recolección de residuos
+3,2024-10,30,30000000,Retiro de especies invasoras.,2024-10-12:Identificación de especies;2024-10-25:Retiro de invasoras
+3,2024-11,50,35000000,Reforestación de áreas degradadas.,2024-11-08:Plantación de árboles;2024-11-22:Implementación de barreras de protección
+3,2024-12,70,30000000,Campañas de concientización comunitaria.,2024-12-05:Taller de educación ambiental;2024-12-20:Campaña de limpieza
+3,2025-01,85,20000000,Seguimiento y mantenimiento.,2025-01-10:Seguimiento de reforestación;2025-01-25:Mantenimiento de barreras
+3,2025-02,95,15000000,Evaluación final y reporte.,2025-02-14:Evaluación de limpieza;2025-02-28:Entrega de informe final
+3,2025-03,100,10000000,Clausura del proyecto.,2025-03-15:Cierre de actividades;2025-03-31:Acto de clausura

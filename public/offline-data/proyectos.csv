@@ -1,0 +1,4 @@
+id,slug,titulo,categoria,fuente,estado,montoAsignado,beneficiarios,lat,lng,inicio,finEstimada,proveedor,observaciones
+1,plaza-de-armas,Mejora de Plaza de Armas,Infraestructura,Municipal,Trabajando,500000000,5000,-40.3215,-72.9547,2025-02-01,2025-08-31,Constructora ABC Ltda.,Proyecto de mejora de áreas verdes y mobiliario.
+2,centro-comunitario,Construcción Centro Comunitario,Social,Regional,Pendiente,300000000,2000,-40.33,-72.94,2025-05-01,2025-12-31,Obras Sociales Río Bueno,Nuevo centro comunitario para eventos y talleres.
+3,limpieza-rio,Limpieza del Río Bueno,Medio Ambiente,Nacional,Listo,150000000,8000,-40.305,-72.92,2024-09-01,2025-03-31,Limpiezas Chile SpA,Programa de limpieza y reforestación de las riberas.
