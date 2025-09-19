@@ -1,13 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './styles/globals.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-// Punto de entrada de la aplicación. Renderiza el componente raíz dentro del
-// elemento con id="root" definido en index.html. Se usa StrictMode para
-// ayudar a detectar problemas potenciales durante el desarrollo.
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+// ✅ Importa Tailwind
+import "./index.css";
+
+// ✅ Luego tus estilos globales personalizados
+import "./styles/globals.css";
+
+// Leaflet
+import "leaflet/dist/leaflet.css";
+
+import AppRoutes from "./routes";
+import { DataProvider } from "./context/DataContext";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <DataProvider>
+      <AppRoutes />
+    </DataProvider>
   </React.StrictMode>
 );

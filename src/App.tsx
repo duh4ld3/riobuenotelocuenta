@@ -6,10 +6,10 @@ import React, {
   useState,
 } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import type { Project } from './types';
-import Home from './routes/Home';
-import ProjectDetail from './routes/ProjectDetail';
-import NotFound from './routes/NotFound';
+import type { Project } from './lib/types';
+import Home from './pages/Home';
+import ProjectDetail from './pages/ProjectDetail';
+import NotFound from './pages/NotFound';
 import { fetchAllData } from './lib/fetchAllData';
 
 // ---- Contexto de datos que usa Home ----

@@ -1,5 +1,6 @@
 import React from 'react';
-import type { Photo } from '../types';
+
+import type { Photo } from '@/lib/types';
 import { normalizeImageUrl, thumbnailImageUrl, PLACEHOLDER } from '../lib/images';
 
 type Props = {
@@ -10,10 +11,11 @@ const PhotoCarousel: React.FC<Props> = ({ photos }) => {
   // Nada que mostrar
   if (!photos || photos.length === 0) {
     return (
-      <div className="bg-darkCard border border-darkBorder rounded-lg p-6 text-center text-gray-400">
-        No hay fotos para este mes.
-      </div>
-    );
+  <div className="bg-white border border-slate-200 rounded-xl2 p-6 text-center text-neutral-500 shadow-card">
+    No hay fotos para este mes.
+  </div>
+);
+   
   }
 
   // Puedes cambiar 1280 por el ancho que prefieras para la imagen "grande"

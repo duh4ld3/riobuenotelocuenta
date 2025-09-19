@@ -1,79 +1,79 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import type { Project } from '../types';
-import { formatCLP } from '../lib/format';
-import { thumbnailImageUrl, PLACEHOLDER } from '../lib/images';
+// src/components/ProjectCard.tsx
+import React from "react";
+import { Link } from "react-router-dom";
+import { Project } from "../services/projects";
 
-interface Props {
-  project: Project;
+// Utilidad defensiva por si llega algo raro en portada/fotos
+function pickCover(p: Project): string {
+  const url =
+    (typeof p.portada === "string" && p.portada.trim()) ||
+    (Array.isArray(p.fotos) ? p.fotos.find(u => typeof u === "string" && u.trim()) : "") ||
+    "";
+  // Aceptamos solo URLs http/https (evita gs://)
+  if (/^https?:\/\//i.test(url)) return url;
+  return ""; // forzamos placeholder
 }
 
-const ProjectCard: React.FC<Props> = ({ project }) => {
-  // primera foto disponible (cualquier mes)
-  const firstPhoto = project.meses.find((m) => m.fotos.length > 0)?.fotos[0];
+function fmtMoney(n?: number) {
+  if (typeof n !== "number" || !Number.isFinite(n)) return "—";
+  return n.toLocaleString("es-CL");
+}
 
-  const imageUrl = firstPhoto?.src
-    ? thumbnailImageUrl(firstPhoto.src, 400) // ⚡ miniatura optimizada
-    : PLACEHOLDER;
-
-  const alt = firstPhoto?.alt ?? 'Imagen de proyecto';
-
-  const averageProgress = React.useMemo(() => {
-    if (project.meses.length === 0) return 0;
-    const total = project.meses.reduce((acc, m) => acc + m.avance, 0);
-    return Math.round(total / project.meses.length);
-  }, [project.meses]);
-
-  const stateStyles: Record<string, string> = {
-    Pendiente: 'bg-amber-500/20 text-amber-400',
-    Trabajando: 'bg-sky-500/20 text-sky-400',
-    Listo: 'bg-emerald-500/20 text-emerald-400',
-  };
-  const pillClass =
-    project.estado && stateStyles[project.estado]
-      ? stateStyles[project.estado]
-      : 'bg-gray-500/20 text-gray-400';
+export default function ProjectCard({ project }: { project: Project }) {
+  const cover = pickCover(project);
+  const estado = (project.estado || "").toLowerCase();
 
   return (
-    <div className="bg-darkCard border border-darkBorder rounded-lg overflow-hidden shadow-md flex flex-col">
-      <img
-        src={imageUrl}
-        alt={alt}
-        className="h-40 w-full object-cover object-center"
-        loading="lazy"
-        onError={(e) => {
-          if (e.currentTarget.src !== PLACEHOLDER) {
-            e.currentTarget.src = PLACEHOLDER;
-          }
-        }}
-      />
-      <div className="p-4 flex-1 flex flex-col">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-lg font-semibold flex-1 pr-2 truncate">
-            {project.titulo}
-          </h2>
-          <span
-            className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${pillClass}`}
-            title={project.estado}
-          >
-            {project.estado}
-          </span>
+    <article className="card project-card">
+      <Link to={`/proyecto/${project.id}`} className="block focus:outline-none focus:ring-2 focus:ring-sky-300 rounded-lg">
+        {/* Imagen 16:9 con object-fit */}
+        <div className="project-card__media">
+          {cover ? (
+            <img
+              src={cover}
+              alt={project.titulo || "Proyecto"}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div className="project-card__placeholder">
+              <span>Sin imagen</span>
+            </div>
+          )}
         </div>
-        <p className="text-sm text-gray-400 mb-1">
-          Monto asignado: {formatCLP(project.montoAsignado ?? 0)}
-        </p>
-        <p className="text-sm text-gray-400 mb-4">
-          Avance promedio: {averageProgress}%
-        </p>
-        <Link
-          to={`/proyectos/${project.slug}`}
-          className="mt-auto inline-block text-sm text-primary hover:underline focus-visible:underline"
-        >
-          Ver detalles
-        </Link>
-      </div>
-    </div>
-  );
-};
 
-export default ProjectCard;
+        <div className="project-card__body">
+          <div className="project-card__meta">
+            {project.categoria ? <span className="chip">{project.categoria}</span> : null}
+            {project.fuente ? <span className="chip">{project.fuente}</span> : null}
+            {estado && (
+              <span
+                className={
+                  "chip " +
+                  (estado === "pendiente"
+                    ? "chip--estado-pendiente"
+                    : estado === "en-progreso"
+                    ? "chip--estado-en-progreso"
+                    : "chip--estado-finalizado")
+                }
+              >
+                {project.estado}
+              </span>
+            )}
+          </div>
+
+          <h3 className="project-card__title">{project.titulo || "Proyecto"}</h3>
+
+          <div className="project-card__row">
+            <span className="project-card__label">Monto</span>
+            <span className="project-card__value">$ {fmtMoney(project.montoAsignado)}</span>
+          </div>
+
+          <div className="project-card__actions">
+            <span className="link">Ver proyecto</span>
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}

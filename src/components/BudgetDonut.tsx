@@ -1,74 +1,47 @@
-import React, { useRef, useEffect } from 'react';
-import Chart from 'chart.js/auto';
-import { formatCLP } from '../lib/format';
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+Chart.register(ArcElement, Tooltip, Legend);
 
-interface Props {
+type Props = {
   asignado: number;
-  ejecutado: number;
-}
+  ejecutado: number; // acumulado
+};
 
-/**
- * Renderiza un gráfico de dona que muestra el porcentaje de presupuesto
- * ejecutado frente al asignado. Utiliza Chart.js directamente sin
- * dependencias adicionales.
- */
-const BudgetDonut: React.FC<Props> = ({ asignado, ejecutado }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    if (!canvasRef.current) return;
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
-    const restante = Math.max(asignado - ejecutado, 0);
-    const data = {
-      labels: ['Ejecutado', 'Restante'],
-      datasets: [
-        {
-          data: [ejecutado, restante],
-          backgroundColor: ['#27AE60', '#374151'],
-          hoverOffset: 4,
-        },
-      ],
-    };
-    const chart = new Chart(ctx, {
-      type: 'doughnut',
-      data,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '60%',
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const label = context.label || '';
-                const value = context.parsed;
-                return `${label}: ${formatCLP(value)}`;
-              },
-            },
-          },
-        },
+export default function BudgetDonut({ asignado, ejecutado }: Props) {
+  const restante = Math.max(0, (asignado || 0) - (ejecutado || 0));
+  const data = {
+    labels: ["Ejecutado", "Restante"],
+    datasets: [
+      {
+        data: [ejecutado || 0, restante],
+        borderWidth: 0,
+        backgroundColor: ["#1E8449", "#EAF4FB"],
+        hoverBackgroundColor: ["#27AE60", "#EAF4FB"],
       },
-    });
-    return () => chart.destroy();
-  }, [asignado, ejecutado]);
+    ],
+  };
+  const pct = asignado > 0 ? Math.round(((ejecutado || 0) / asignado) * 100) : 0;
 
-  // Calcular porcentaje ejecutado
-  const percent = asignado > 0 ? Math.round((ejecutado / asignado) * 100) : 0;
+  const options = {
+    cutout: "70%" as const,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: {
+        label: (ctx: any) => `${ctx.label}: ${ctx.parsed.toLocaleString("es-CL")}`,
+      }},
+    },
+  };
 
   return (
-    <div className="relative h-56 w-full flex items-center justify-center">
-      <canvas ref={canvasRef} className="h-full w-full"></canvas>
-      {/* Texto central sobre el gráfico */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <span className="text-2xl font-semibold text-primary">{percent}%</span>
-        <span className="text-xs text-gray-400">Ejecutado</span>
+    <div style={{ position: "relative", width: "100%", maxWidth: 360, margin: "0 auto" }}>
+      <Doughnut data={data} options={options} />
+      <div style={{
+        position: "absolute", inset: 0, display: "grid", placeItems: "center",
+        fontWeight: 800, color: "#1E8449"
+      }}>
+        {pct}%
       </div>
     </div>
   );
-};
-
-export default BudgetDonut;
+}

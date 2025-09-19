@@ -86,19 +86,18 @@ const FiltersBar: React.FC<Props> = ({
         <label htmlFor="fuente" className="sr-only">
           Fuente
         </label>
-        <select
-          id="fuente"
-          value={fuente}
-          onChange={(e) => onFuenteChange(e.target.value)}
-          className="w-full rounded-md border border-darkBorder bg-darkCard px-3 py-2 text-sm focus:border-primary focus:ring-primary"
-        >
-          <option value="">Todas las fuentes</option>
-          {fuentes.map((fu) => (
-            <option key={fu} value={fu}>
-              {fu}
-            </option>
-          ))}
-        </select>
+       <select
+  value={fuente}
+  onChange={(e) => onFuenteChange(e.target.value)}
+  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm 
+           focus:border-brand-700 focus:ring-brand-700"
+
+>
+  <option value="">Todas las fuentes</option>
+  {fuentes.map((fu) => (
+    <option key={fu} value={fu}>{fu}</option>
+  ))}
+</select>
       </div>
     </div>
   );
